@@ -17,6 +17,7 @@ dependencies:
   archive: ^3.4.0
   path_provider: ^2.1.1
   file_picker: ^6.1.1
+  path: ^1.9.1
   
   # XML parsing
   xml: ^6.4.2
