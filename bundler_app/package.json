@@ -7,7 +7,11 @@
     "start": "electron .",
     "build": "electron-builder"
   },
-  "keywords": ["phonology", "tone", "linguistics"],
+  "keywords": [
+    "phonology",
+    "tone",
+    "linguistics"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,7 +19,7 @@
     "fast-xml-parser": "^4.3.2"
   },
   "devDependencies": {
-    "electron": "^27.0.0",
+    "electron": "^39.0.0",
     "electron-builder": "^24.6.4"
   },
   "build": {
