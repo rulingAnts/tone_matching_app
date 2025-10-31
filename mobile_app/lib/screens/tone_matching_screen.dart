@@ -92,7 +92,7 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
                         controller: _spellingController,
                         decoration: InputDecoration(
                           labelText: 'Enter spelling',
-                          border: const OutlineInput Border(),
+                          border: const OutlineInputBorder(),
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.check),
                             onPressed: () {
