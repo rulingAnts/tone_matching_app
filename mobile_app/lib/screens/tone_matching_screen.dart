@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import '../services/app_state.dart';
 import '../models/tone_group.dart';
 import '../widgets/tone_group_card.dart';
@@ -48,16 +47,18 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
             return const Center(child: Text('No words to match'));
           }
 
-          final requireSpelling = appState.settings?.requireUserSpelling ?? false;
+          final requireSpelling =
+              appState.settings?.requireUserSpelling ?? false;
           final hasExistingGroup = currentWord.toneGroup != null;
 
           return Column(
             children: [
               // Progress indicator
               LinearProgressIndicator(
-                value: (appState.currentWordIndex + 1) / appState.records.length,
+                value:
+                    (appState.currentWordIndex + 1) / appState.records.length,
               ),
-              
+
               // Word info and audio
               Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -76,7 +77,7 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                     const SizedBox(height: 16),
-                    
+
                     // Play button (graphical icon, no text)
                     IconButton(
                       icon: const Icon(Icons.play_circle_filled),
@@ -84,7 +85,7 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
                       color: Theme.of(context).primaryColor,
                       onPressed: () => appState.playWord(currentWord),
                     ),
-                    
+
                     // User spelling input if required
                     if (requireSpelling && !hasExistingGroup) ...[
                       const SizedBox(height: 16),
@@ -97,7 +98,8 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
                             icon: const Icon(Icons.check),
                             onPressed: () {
                               if (_spellingController.text.isNotEmpty) {
-                                appState.updateUserSpelling(_spellingController.text);
+                                appState.updateUserSpelling(
+                                    _spellingController.text);
                                 setState(() {
                                   _spellingEntered = true;
                                 });
@@ -140,17 +142,17 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 16),
-        
+
         // Existing tone groups
         ...appState.toneGroups.map((group) => Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: ToneGroupCard(
-            group: group,
-            onSelect: () => _selectToneGroup(appState, group),
-            onPlayWord: (word) => appState.playWord(word),
-          ),
-        )),
-        
+              padding: const EdgeInsets.only(bottom: 16),
+              child: ToneGroupCard(
+                group: group,
+                onSelect: () => _selectToneGroup(appState, group),
+                onPlayWord: (word) => appState.playWord(word),
+              ),
+            )),
+
         // Create new group button
         Card(
           child: InkWell(
@@ -233,12 +235,12 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
 
   Future<void> _exportResults() async {
     final appState = Provider.of<AppState>(context, listen: false);
-    
+
     try {
       final zipPath = await appState.exportResults();
-      
+
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Results exported to: $zipPath'),
@@ -251,7 +253,7 @@ class _ToneMatchingScreenState extends State<ToneMatchingScreen> {
       );
     } catch (e) {
       if (!mounted) return;
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Export failed: $e'),
